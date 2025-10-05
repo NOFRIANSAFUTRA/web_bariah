@@ -137,20 +137,26 @@
 
         .logo__image {
             width: 60px;
-            height: 60px;
-            border-radius: 50%;
+            /* lebar */
+            height: 90px;
+            /* tinggi lebih besar dari lebar, jadi lonjong */
+            border-radius: 50% / 30%;
+            /* lonjong vertikal */
             overflow: hidden;
-            /* Supaya gambar bulat */
             display: flex;
             align-items: center;
             justify-content: center;
+            background-color: #fff;
+            border: 2px solid #000;
+            /* garis tepi */
         }
 
         .logo__image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            /* Supaya gambar tidak terdistorsi */
+            object-fit: contain;
+            object-position: center;
+            display: block;
         }
 
 
@@ -269,20 +275,25 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.4),
-                    rgba(0, 0, 0, 0.4)),
-                url('images/halaman_utama.jpg');
-            /* ganti dengan path gambar kamu */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                url('images/halaman_utama.jpg') no-repeat center center / cover;
+            /* penjelasan: */
+            /* - no-repeat: supaya gambar tidak diulang */
+            /* - center center: posisikan di tengah */
+            /* - / cover: menyesuaikan layar penuh, tetap proporsional */
 
             color: white;
-            ¬ padding: 6rem 0;
+            padding: 6rem 0;
+            /* hapus simbol ¬ yang salah */
             text-align: center;
             position: relative;
-            overflow: hidden;
+            min-height: 100vh;
+            /* supaya hero menutupi tinggi layar penuh */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+
 
         .hero::before {
             content: '';
