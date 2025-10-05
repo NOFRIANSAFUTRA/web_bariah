@@ -138,14 +138,21 @@
         .logo__image {
             width: 60px;
             height: 60px;
-            background: var(--secondary-color);
             border-radius: 50%;
+            overflow: hidden;
+            /* Supaya gambar bulat */
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
         }
+
+        .logo__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Supaya gambar tidak terdistorsi */
+        }
+
 
         .logo__text h1 {
             font-size: 1.4rem;
@@ -271,7 +278,7 @@
             background-repeat: no-repeat;
 
             color: white;
-            padding: 6rem 0;
+            ¬ padding: 6rem 0;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -696,7 +703,10 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <div class="logo__image">SK</div>
+                    <div class="logo__image">
+                        <img src="images/logo.jpg" alt="Logo" />
+                    </div>
+
                     <div class="logo__text">
                         <h1>Kecamatan Simpang Kiri</h1>
                         <p>Kota Subulussalam, Provinsi Aceh</p>
