@@ -772,12 +772,40 @@
                             <i class="fas fa-list-alt"></i> Status Surat
 
 
-                    <li><a href="logout.php" onclick="return confirm('Yakin ingin logout?')" class="nav-link">
+                    <li>
+                        <a href="#" id="logoutBtn" class="nav-link">
                             <i class="fas fa-sign-out-alt"></i> Logout
-                        </a></li>
+                        </a>
+                    </li>
+
+                    <script>
+                        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                            e.preventDefault(); // Supaya link tidak langsung dijalankan
+
+                            Swal.fire({
+                                title: 'Yakin ingin logout?',
+                                text: "Kamu akan keluar dari akun ini.",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Ya, logout!',
+                                cancelButtonText: 'Batal'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = 'logout.php';
+                                }
+                            });
+                        });
+                    </script>
+
                 </ul>
             </nav>
         </div>
+
+        <!-- Tambahkan di atas </body> -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
         <!-- MAIN CONTENT -->
         <div class="main-content">

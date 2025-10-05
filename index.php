@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,8 +21,8 @@
             --background-primary: #ffffff;
             --background-secondary: #f8f9fa;
             --background-tertiary: #ecf0f1;
-            --shadow-light: 0 2px 10px rgba(0,0,0,0.08);
-            --shadow-medium: 0 4px 20px rgba(0,0,0,0.12);
+            --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.12);
             --border-radius: 12px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --max-width: 1200px;
@@ -58,21 +59,45 @@
             text-align: center;
         }
 
-        .mb-1 { margin-bottom: 0.5rem; }
-        .mb-2 { margin-bottom: 1rem; }
-        .mb-3 { margin-bottom: 1.5rem; }
-        .mb-4 { margin-bottom: 2rem; }
+        .mb-1 {
+            margin-bottom: 0.5rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 2rem;
+        }
 
         /* Typography */
-        h1, h2, h3, h4, h5, h6 {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             font-weight: 600;
             line-height: 1.3;
             margin-bottom: 1rem;
         }
 
-        h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
-        h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
-        h3 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
+        h1 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+        }
+
+        h3 {
+            font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+        }
 
         p {
             margin-bottom: 1rem;
@@ -237,10 +262,14 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, 
-                rgba(52, 152, 219, 0.9) 0%, 
-                rgba(44, 62, 80, 0.9) 100%),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="50" cy="50" r="0.5" fill="%23ffffff" opacity="0.05"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grain)"/></svg>');
+            background: linear-gradient(rgba(0, 0, 0, 0.4),
+                    rgba(0, 0, 0, 0.4)),
+                url('images/halaman_utama.jpg');
+            /* ganti dengan path gambar kamu */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
             color: white;
             padding: 6rem 0;
             text-align: center;
@@ -474,7 +503,7 @@
         .footer__bottom {
             text-align: center;
             padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #bdc3c7;
         }
 
@@ -500,7 +529,7 @@
                 height: 100vh;
                 background: linear-gradient(135deg, var(--primary-color) 0%, #34495e 100%);
                 transition: var(--transition);
-                box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
                 padding-top: 80px;
             }
 
@@ -517,7 +546,7 @@
 
             .nav__list li {
                 width: 100%;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
 
             .nav__link {
@@ -608,6 +637,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -626,7 +656,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 999;
             opacity: 0;
             transition: var(--transition);
@@ -639,7 +669,10 @@
 
         /* Accessibility */
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
+
+            *,
+            *::before,
+            *::after {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
@@ -658,7 +691,7 @@
 
 <body>
     <div class="nav-overlay"></div>
-    
+
     <header class="header">
         <div class="container">
             <div class="header-content">
@@ -669,13 +702,13 @@
                         <p>Kota Subulussalam, Provinsi Aceh</p>
                     </div>
                 </div>
-                
+
                 <button class="nav__toggle" aria-label="Toggle navigation">
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
-                
+
                 <nav class="nav">
                     <ul class="nav__list">
                         <li><a href="#beranda" class="nav__link">Beranda</a></li>
@@ -704,57 +737,57 @@
             <div class="container">
                 <h2 class="section__title">Layanan Surat Menyurat</h2>
                 <p class="section__subtitle">Pelayanan pengajuan surat resmi Kecamatan Simpang Kiri secara digital</p>
-                
+
                 <div class="services-grid">
                     <div class="service-card fade-in-up">
                         <div class="service-card__icon">📨</div>
                         <h3 class="service-card__title">Surat Pengantar</h3>
                         <p class="service-card__description">Untuk berbagai keperluan administrasi yang membutuhkan pengantar dari pihak kecamatan.</p>
                     </div>
-                    
+
                     <div class="service-card fade-in-up">
                         <div class="service-card__icon">🏠</div>
                         <h3 class="service-card__title">Surat Keterangan Domisili</h3>
                         <p class="service-card__description">Bukti legal tempat tinggal untuk keperluan administrasi dan legalitas.</p>
                     </div>
-                    
+
                     <div class="service-card fade-in-up">
                         <div class="service-card__icon">💼</div>
                         <h3 class="service-card__title">Surat Keterangan Usaha (SKU)</h3>
                         <p class="service-card__description">Pengakuan legal terhadap usaha yang dijalankan di wilayah kecamatan.</p>
                     </div>
-                    
+
                     <div class="service-card fade-in-up">
                         <div class="service-card__icon">🤲</div>
                         <h3 class="service-card__title">Surat Keterangan Kurang Mampu</h3>
                         <p class="service-card__description">Untuk keperluan mendapatkan bantuan sosial atau keringanan biaya.</p>
                     </div>
-                    
+
                     <div class="service-card fade-in-up">
                         <div class="service-card__icon">⚰️</div>
                         <h3 class="service-card__title">Surat Keterangan Meninggal Dunia</h3>
                         <p class="service-card__description">Dokumen resmi untuk keperluan administrasi terkait kematian.</p>
                     </div>
-                    
+
                     <div class="service-card fade-in-up">
                         <div class="service-card__icon">💍</div>
                         <h3 class="service-card__title">Surat Rekomendasi Nikah</h3>
                         <p class="service-card__description">Persyaratan administrasi untuk proses pernikahan.</p>
                     </div>
-                    
+
                     <div class="service-card fade-in-up">
                         <div class="service-card__icon">🆘</div>
                         <h3 class="service-card__title">Surat Rekomendasi Bantuan</h3>
                         <p class="service-card__description">Untuk pengajuan bantuan sosial atau program pemerintah.</p>
                     </div>
-                    
+
                     <div class="service-card fade-in-up">
                         <div class="service-card__icon">🎪</div>
                         <h3 class="service-card__title">Surat Rekomendasi Kegiatan</h3>
                         <p class="service-card__description">Persetujuan kegiatan keramaian atau event di wilayah kecamatan.</p>
                     </div>
                 </div>
-                
+
                 <div class="service-note">
                     <p><strong>Catatan:</strong> Layanan ini hanya untuk surat-surat kebutuhan masyarakat. Surat internal antar-instansi tidak termasuk dalam layanan ini.</p>
                 </div>
@@ -806,7 +839,7 @@
                     <h3 class="footer-section__title">Kontak Kami</h3>
                     <div>
                         <p>📍 Jl. Kecamatan No. 1, Simpang Kiri<br>
-                        Kota Subulussalam, Aceh 24882</p>
+                            Kota Subulussalam, Aceh 24882</p>
                         <p>📧 kec.simpangkiri@subulussalamkota.go.id</p>
                         <p>📞 (0627) 12345</p>
                         <p>📱 WhatsApp: 0812-3456-7890</p>
@@ -846,7 +879,7 @@
             const overlay = document.querySelector('.nav-overlay');
             const navLinks = document.querySelectorAll('.nav__link');
             const body = document.body;
-            
+
             // Toggle menu
             if (toggle) {
                 toggle.addEventListener('click', function() {
@@ -891,7 +924,7 @@
 
             // Smooth scrolling for navigation links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
+                anchor.addEventListener('click', function(e) {
                     e.preventDefault();
                     const target = document.querySelector(this.getAttribute('href'));
                     if (target) {
@@ -929,19 +962,20 @@
             // Active header on scroll
             let lastScroll = 0;
             const header = document.querySelector('.header');
-            
+
             window.addEventListener('scroll', function() {
                 const currentScroll = window.pageYOffset;
-                
+
                 if (currentScroll > 100) {
                     header.style.padding = '0.5rem 0';
                 } else {
                     header.style.padding = '1rem 0';
                 }
-                
+
                 lastScroll = currentScroll;
             });
         });
     </script>
 </body>
+
 </html
