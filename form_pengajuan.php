@@ -35,8 +35,6 @@ switch ($jenis_surat) {
         $nama_surat = 'Rekomendasi Nikah';
         break;
     default:
-        header("Location: dashboard.php");
-        exit();
 }
 
 // Ambil data user dari database
@@ -59,7 +57,7 @@ if (!$user) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $keperluan = htmlspecialchars($_POST['keperluan']);
     $keterangan = htmlspecialchars($_POST['keterangan']);
-    
+
     // Handle file upload
     $target_dir = "uploads/";
     $file_name = basename($_FILES["dokumen_pendukung"]["name"]);
@@ -89,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                       VALUES (?, ?, ?, ?, ?, 'pending', NOW())";
             $stmt = $conn->prepare($query);
             $stmt->bind_param("issss", $user_id, $jenis_surat, $keperluan, $keterangan, $target_file);
-            
+
             if ($stmt->execute()) {
                 $success = "Pengajuan surat berhasil dikirim!";
             } else {
@@ -104,6 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -117,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin: 0;
             padding: 0;
         }
-        
+
         .container {
             max-width: 800px;
             margin: 30px auto;
@@ -126,48 +125,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
+
         .form-header {
             text-align: center;
             margin-bottom: 30px;
             padding-bottom: 15px;
             border-bottom: 1px solid #eee;
         }
-        
+
         .form-header h2 {
             color: #2c3e50;
             margin-bottom: 10px;
         }
-        
+
         .alert {
             padding: 15px;
             border-radius: 4px;
             margin-bottom: 20px;
         }
-        
+
         .alert-success {
             background-color: #d4edda;
             color: #155724;
             border-left: 4px solid #28a745;
         }
-        
+
         .alert-danger {
             background-color: #f8d7da;
             color: #721c24;
             border-left: 4px solid #dc3545;
         }
-        
+
         .form-group {
             margin-bottom: 20px;
         }
-        
+
         .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
             color: #495057;
         }
-        
+
         .form-control {
             width: 100%;
             padding: 12px 15px;
@@ -176,17 +175,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 1rem;
             transition: border-color 0.3s;
         }
-        
+
         .form-control:focus {
             border-color: #3498db;
             outline: none;
             box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
         }
-        
+
         textarea.form-control {
             min-height: 120px;
         }
-        
+
         .btn {
             padding: 12px 20px;
             border: none;
@@ -196,36 +195,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-weight: 500;
             transition: all 0.3s;
         }
-        
+
         .btn-primary {
             background: #3498db;
             color: white;
         }
-        
+
         .btn-primary:hover {
             background: #2980b9;
         }
-        
+
         .btn-secondary {
             background: #6c757d;
             color: white;
         }
-        
+
         .btn-secondary:hover {
             background: #5a6268;
         }
-        
+
         .form-actions {
             display: flex;
             justify-content: space-between;
             margin-top: 30px;
         }
-        
+
         .file-upload {
             display: flex;
             flex-direction: column;
         }
-        
+
         .file-upload-info {
             font-size: 0.85rem;
             color: #6c757d;
@@ -233,13 +232,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="form-header">
             <h2><i class="fas fa-file-alt"></i> Form Pengajuan <?= $nama_surat ?></h2>
             <p>Isi form berikut dengan data yang valid dan lengkap</p>
         </div>
-        
+
         <?php if (isset($success)): ?>
             <div class="alert alert-success">
                 <i class="fas fa-check-circle"></i> <?= $success ?>
@@ -249,25 +249,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <i class="fas fa-exclamation-circle"></i> <?= $error ?>
             </div>
         <?php endif; ?>
-        
+
         <form action="" method="post" enctype="multipart/form-data">
             <input type="hidden" name="jenis_surat" value="<?= $jenis_surat ?>">
-            
+
             <div class="form-group">
                 <label for="nama_lengkap">Nama Lengkap</label>
                 <input type="text" id="nama_lengkap" class="form-control" value="<?= htmlspecialchars($user['nama_lengkap']) ?>" readonly>
             </div>
-            
+
             <div class="form-group">
                 <label for="keperluan">Keperluan Surat *</label>
                 <input type="text" id="keperluan" name="keperluan" class="form-control" required placeholder="Contoh: Pengurusan KTP, Pendaftaran Sekolah, dll">
             </div>
-            
+
             <div class="form-group">
                 <label for="keterangan">Keterangan Tambahan</label>
                 <textarea id="keterangan" name="keterangan" class="form-control" placeholder="Jelaskan secara rinci keperluan surat ini"></textarea>
             </div>
-            
+
             <div class="form-group">
                 <label for="dokumen_pendukung">Dokumen Pendukung *</label>
                 <div class="file-upload">
@@ -275,7 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <span class="file-upload-info">Format: PDF, JPG, PNG (maks. 2MB). Contoh: Scan KTP, KK, atau dokumen pendukung lainnya.</span>
                 </div>
             </div>
-            
+
             <div class="form-actions">
                 <a href="dashboard_user.php" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i> Kembali
@@ -287,4 +287,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
     </div>
 </body>
+
 </html>

@@ -429,22 +429,29 @@
         }
 
         /* Surat Cards */
+        /* GRID LAYOUT */
         .surat-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
-            margin: 25px 0;
+            margin: 40px 0;
+            padding: 0 10px;
         }
 
+        /* KARTU UTAMA */
         .surat-card {
             background: white;
             border-radius: var(--border-radius);
             padding: 25px;
             box-shadow: var(--box-shadow);
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
             border-top: 4px solid var(--accent-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
+
 
         .surat-card:hover {
             transform: translateY(-5px);
@@ -806,7 +813,9 @@
         <!-- Tambahkan di atas </body> -->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+        <script>
 
+        </script>
         <!-- MAIN CONTENT -->
         <div class="main-content">
             <!-- DASHBOARD SECTION -->
@@ -936,21 +945,23 @@
 
                 <div class="surat-grid">
                     <!-- Surat Pengantar -->
-                    <div class="surat-card" onclick="openSuratForm('pengantar')">
-                        <div class="card-icon">
-                            <i class="fas fa-envelope-open-text"></i>
+                    <div class="surat-grid">
+                        <div class="surat-card" onclick="openSuratForm('pengantar.php')">
+                            <div class="card-icon">
+                                <i class="fas fa-envelope-open-text"></i>
+                            </div>
+                            <h3>Surat Pengantar</h3>
+                            <p>Ajukan surat pengantar resmi dengan mudah dan cepat melalui sistem ini.</p>
+                            <span class="lihat-prosedur">Klik di sini untuk lihat prosedurnya dan ajukan surat →</span>
                         </div>
-                        <h3>Surat Pengantar</h3>
-                        <p>Untuk keperluan administrasi di instansi lain seperti pengurusan dokumen kependudukan, perizinan, atau keperluan lainnya</p>
-                        <div class="card-meta">
-                            <span><i class="fas fa-clock"></i> Selesai hari ini</span>
-                            <span><i class="fas fa-file-alt"></i> Butuh KK + KTP</span>
-                        </div>
-                        <form action="form_pengajuan.php" method="get">
-                            <input type="hidden" name="jenis" value="pengantar">
-                            <button type="submit" class="btn-ajukan">Ajukan Sekarang</button>
-                        </form>
                     </div>
+
+                    <script>
+                        function openSuratForm(file) {
+                            window.location.href = file; // Arahkan ke file lain, contoh: pengantar.html
+                        }
+                    </script>
+
 
                     <!-- Surat Keterangan Domisili -->
                     <div class="surat-card" onclick="openSuratForm('domisili')">
