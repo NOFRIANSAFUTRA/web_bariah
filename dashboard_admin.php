@@ -689,8 +689,12 @@ if (empty($request_stats)) {
                             <i class="fas fa-file-alt"></i> Kelola Surat</a></li>
                     <li><a href="#" onclick="showSection('reports')">
                             <i class="fas fa-chart-bar"></i> Laporan</a></li>
-                    <li><a href="logout.php">
-                            <i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    <li>
+                        <a href="#" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </li>
+
                 </ul>
             </nav>
         </div>
@@ -765,34 +769,34 @@ if (empty($request_stats)) {
             </div>
 
             <!-- KELOLA SURAT SECTION -->
-          <div id="requests-section" class="section">
-    <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h3><i class="fas fa-file-alt me-2"></i>Kelola Permohonan Surat</h3>
-            <button class="btn btn-primary" onclick="location.reload()">
-                <i class="fas fa-sync-alt"></i> Refresh Data
-            </button>
-        </div>
-        <div class="card-body">
-            <?php
-            // Filter status
-            $status_filter = isset($_GET['status']) ? $_GET['status'] : 'all';
-            $status_condition = "";
+            <div id="requests-section" class="section">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h3><i class="fas fa-file-alt me-2"></i>Kelola Permohonan Surat</h3>
+                        <button class="btn btn-primary" onclick="location.reload()">
+                            <i class="fas fa-sync-alt"></i> Refresh Data
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <?php
+                        // Filter status
+                        $status_filter = isset($_GET['status']) ? $_GET['status'] : 'all';
+                        $status_condition = "";
 
-            if ($status_filter != 'all') {
-                $status_condition = "WHERE p.status = '" . $conn->real_escape_string($status_filter) . "'";
-            }
+                        if ($status_filter != 'all') {
+                            $status_condition = "WHERE p.status = '" . $conn->real_escape_string($status_filter) . "'";
+                        }
 
-        // Query data pengajuan
-$query = "SELECT p.*, u.nama_lengkap, u.no_hp 
+                        // Query data pengajuan
+                        $query = "SELECT p.*, u.nama_lengkap, u.no_hp 
           FROM pengajuan_surat p 
           JOIN users u ON p.user_id = u.id 
           $status_condition
           ORDER BY p.tanggal_pengajuan DESC";
-$result = $conn->query($query);
+                        $result = $conn->query($query);
 
-            // Filter status dropdown
-            echo "<div class='filter-container mb-3'>
+                        // Filter status dropdown
+                        echo "<div class='filter-container mb-3'>
                 <label for='status-filter' class='form-label'>Filter Status:</label>
                 <select id='status-filter' class='filter-select' onchange='filterStatus(this.value)'>
                     <option value='all'" . ($status_filter == 'all' ? ' selected' : '') . ">Semua Status</option>
@@ -802,8 +806,8 @@ $result = $conn->query($query);
                 </select>
             </div>";
 
-            if ($result && $result->num_rows > 0) {
-                echo "<div class='table-container'>
+                        if ($result && $result->num_rows > 0) {
+                            echo "<div class='table-container'>
                         <table class='custom-table'>
                             <thead>
                                 <tr>
@@ -819,34 +823,34 @@ $result = $conn->query($query);
                             </thead>
                             <tbody>";
 
-                $no = 1;
-                while ($row = $result->fetch_assoc()) {
-                    // Tentukan nama surat berdasarkan jenis
-                    $nama_surat = '';
-                    switch ($row['jenis_surat']) {
-                        case 'pengantar':
-                            $nama_surat = 'Surat Pengantar';
-                            break;
-                        case 'domisili':
-                            $nama_surat = 'Surat Domisili';
-                            break;
-                        case 'usaha':
-                            $nama_surat = 'Surat Keterangan Usaha';
-                            break;
-                        case 'tidak-mampu':
-                            $nama_surat = 'Surat Keterangan Tidak Mampu';
-                            break;
-                        case 'meninggal':
-                            $nama_surat = 'Surat Keterangan Meninggal';
-                            break;
-                        case 'rekomendasi-nikah':
-                            $nama_surat = 'Rekomendasi Nikah';
-                            break;
-                        default:
-                            $nama_surat = ucfirst($row['jenis_surat']);
-                    }
+                            $no = 1;
+                            while ($row = $result->fetch_assoc()) {
+                                // Tentukan nama surat berdasarkan jenis
+                                $nama_surat = '';
+                                switch ($row['jenis_surat']) {
+                                    case 'pengantar':
+                                        $nama_surat = 'Surat Pengantar';
+                                        break;
+                                    case 'domisili':
+                                        $nama_surat = 'Surat Domisili';
+                                        break;
+                                    case 'usaha':
+                                        $nama_surat = 'Surat Keterangan Usaha';
+                                        break;
+                                    case 'tidak-mampu':
+                                        $nama_surat = 'Surat Keterangan Tidak Mampu';
+                                        break;
+                                    case 'meninggal':
+                                        $nama_surat = 'Surat Keterangan Meninggal';
+                                        break;
+                                    case 'rekomendasi-nikah':
+                                        $nama_surat = 'Rekomendasi Nikah';
+                                        break;
+                                    default:
+                                        $nama_surat = ucfirst($row['jenis_surat']);
+                                }
 
-                    echo "<tr id='request-row-{$row['id']}'>
+                                echo "<tr id='request-row-{$row['id']}'>
                         <td>{$no}</td>
                         <td>" . htmlspecialchars($row['nama_lengkap']) . "</td>
                         <td>" . htmlspecialchars($nama_surat) . "</td>
@@ -861,26 +865,26 @@ $result = $conn->query($query);
                         <td>" . date('d/m/Y', strtotime($row['tanggal_pengajuan'])) . "</td>
                         <td>";
 
-                    // Kolom Surat - Tampilkan tombol download jika status diterima
-                    if ($row['status'] == 'diterima') {
-                        echo "<a href='generate_surat.php?id={$row['id']}' 
+                                // Kolom Surat - Tampilkan tombol download jika status diterima
+                                if ($row['status'] == 'diterima') {
+                                    echo "<a href='generate_surat.php?id={$row['id']}' 
                                 target='_blank' 
                                 class='btn btn-sm btn-success'>
                                 <i class='fas fa-download'></i> Download Surat
                               </a>";
-                    } elseif (!empty($row['file_surat'])) {
-                        echo "<a href='uploads/{$row['file_surat']}' 
+                                } elseif (!empty($row['file_surat'])) {
+                                    echo "<a href='uploads/{$row['file_surat']}' 
                                 target='_blank' 
                                 class='btn btn-sm btn-info'>
                                 <i class='fas fa-download'></i> Unduh File
                               </a>";
-                    } else {
-                        echo "<span class='text-muted'>
+                                } else {
+                                    echo "<span class='text-muted'>
                                 <i class='fas fa-clock'></i> Belum tersedia
                               </span>";
-                    }
+                                }
 
-                    echo "</td>
+                                echo "</td>
                         <td>
                             <div class='btn-group' role='group'>
                                 <button class='btn btn-sm btn-primary' 
@@ -889,89 +893,81 @@ $result = $conn->query($query);
                                     <i class='fas fa-eye'></i>
                                 </button>";
 
-                    // Tombol download tambahan untuk admin (jika surat sudah diterima)
-                if ($row['status'] == 'diterima') {
-    echo '<a href="generate_surat.php?id=' . $row['id'] . '" 
-            target="_blank" 
-            class="btn btn-sm btn-success" 
-            title="Download Surat">
-            <i class="fas fa-file-pdf"></i>
-          </a>';
-}
 
-// Tombol hapus
-echo '<button class="btn btn-sm btn-danger" 
+
+                                // Tombol hapus
+                                echo '<button class="btn btn-sm btn-danger" 
         onclick="deleteRequest(' . $row['id'] . ')" 
         title="Hapus">
         <i class="fas fa-trash"></i>
       </button>';
 
-// Kirim WhatsApp kalau ada nomor HP
-if (!empty($row['no_hp'])) {
-    // Ubah 08xxx -> 628xxx agar sesuai format WhatsApp
-    $no_hp = preg_replace('/^0/', '62', $row['no_hp']); 
-    
-    // Pesan WA
-    $pesan = "Halo {$row['nama_lengkap']}, pengajuan surat Anda (ID: {$row['id']}) telah DITERIMA. Surat sudah dapat diunduh atau diambil langsung di kantor desa.";
-    
-    echo '<a href="https://wa.me/' . $no_hp . '?text=' . urlencode($pesan) . '" 
+                                // Kirim WhatsApp kalau ada nomor HP
+                                if (!empty($row['no_hp'])) {
+                                    // Ubah 08xxx -> 628xxx agar sesuai format WhatsApp
+                                    $no_hp = preg_replace('/^0/', '62', $row['no_hp']);
+
+                                    // Pesan WA
+                                    $pesan = "Halo {$row['nama_lengkap']}, pengajuan surat Anda (ID: {$row['id']}) telah DITERIMA. Surat sudah dapat diunduh atau diambil langsung di kantor desa.";
+
+                                    echo '<a href="https://wa.me/' . $no_hp . '?text=' . urlencode($pesan) . '" 
             target="_blank" 
             class="btn btn-sm btn-success" 
             title="Kirim WhatsApp">
             <i class="fab fa-whatsapp"></i>
           </a>';
-} else {
-    echo '<span class="text-muted">No HP tidak tersedia</span>';
-}
+                                } else {
+                                    echo '<span class="text-muted">No HP tidak tersedia</span>';
+                                }
 
-echo '</div></td></tr>';
-$no++;
-                }
+                                echo '</div></td></tr>';
+                                $no++;
+                            }
 
-                echo "</tbody></table></div>";
-            } else {
-                echo "<div class='empty-state text-center'>
+                            echo "</tbody></table></div>";
+                        } else {
+                            echo "<div class='empty-state text-center'>
                         <i class='fas fa-inbox fa-2x mb-2'></i>
                         <h4>Belum ada pengajuan surat</h4>
                         <p>Tidak ada permohonan surat yang ditemukan</p>
                       </div>";
-            }
-            ?>
-        </div>
-    </div>
-</div>
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
 
-<style>
-/* Tambahan CSS untuk styling tombol */
-.btn-group .btn {
-    margin-right: 2px;
-}
+            <style>
+                /* Tambahan CSS untuk styling tombol */
+                .btn-group .btn {
+                    margin-right: 2px;
+                }
 
-.btn-group .btn:last-child {
-    margin-right: 0;
-}
+                .btn-group .btn:last-child {
+                    margin-right: 0;
+                }
 
-.custom-table td {
-    vertical-align: middle;
-}
+                .custom-table td {
+                    vertical-align: middle;
+                }
 
-.text-muted {
-    font-style: italic;
-}
+                .text-muted {
+                    font-style: italic;
+                }
 
-/* Responsive untuk mobile */
-@media (max-width: 768px) {
-    .btn-group {
-        flex-direction: column;
-        gap: 2px;
-    }
-    
-    .btn-group .btn {
-        margin-right: 0;
-        margin-bottom: 2px;
-    }
-}
-</style>
+                /* Responsive untuk mobile */
+                @media (max-width: 768px) {
+                    .btn-group {
+                        flex-direction: column;
+                        gap: 2px;
+                    }
+
+                    .btn-group .btn {
+                        margin-right: 0;
+                        margin-bottom: 2px;
+                    }
+                }
+            </style>
 
 
 
@@ -1064,55 +1060,7 @@ $no++;
             }, 5000);
         }
 
-        // Fungsi untuk update status
-        function updateStatus(requestId, status) {
-            if (confirm(`Apakah Anda yakin ingin ${status === 'diterima' ? 'menerima' : 'menolak'} permohonan ini?`)) {
-                fetch('', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `action=update_status&request_id=${requestId}&status=${status}`
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            showAlert(data.message, 'success');
-                            setTimeout(() => location.reload(), 1000);
-                        } else {
-                            showAlert(data.message, 'danger');
-                        }
-                    })
-                    .catch(error => {
-                        showAlert('Terjadi kesalahan sistem', 'danger');
-                    });
-            }
-        }
 
-        // Fungsi untuk menghapus request
-        function deleteRequest(requestId) {
-            if (confirm('Apakah Anda yakin ingin menghapus permohonan ini? Tindakan ini tidak dapat dibatalkan.')) {
-                fetch('', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `action=delete_request&request_id=${requestId}`
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            showAlert(data.message, 'success');
-                            document.getElementById('request-row-' + requestId).remove();
-                        } else {
-                            showAlert(data.message, 'danger');
-                        }
-                    })
-                    .catch(error => {
-                        showAlert('Terjadi kesalahan sistem', 'danger');
-                    });
-            }
-        }
 
         // Fungsi untuk filter status
         function filterStatus(status) {
@@ -1210,6 +1158,163 @@ $no++;
             modal.show();
         }
     </script>
+
+    <!-- hapus -->
+    <script>
+        function deleteRequest(requestId) {
+            Swal.fire({
+                title: 'Yakin ingin menghapus?',
+                text: "Data permohonan ini akan dihapus dan tidak dapat dikembalikan.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch('', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: `action=delete_request&request_id=${requestId}`
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Berhasil!',
+                                    text: data.message,
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                                // Hapus baris data dari tabel
+                                document.getElementById('request-row-' + requestId).remove();
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Gagal!',
+                                    text: data.message
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Kesalahan Sistem!',
+                                text: 'Terjadi kesalahan, coba lagi nanti.'
+                            });
+                        });
+                }
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <!-- update status -->
+    <script>
+        function updateStatus(requestId, status) {
+            const actionText = status === 'diterima' ? 'menerima' : 'menolak';
+            const confirmColor = status === 'diterima' ? '#28a745' : '#d33';
+
+            Swal.fire({
+                title: `Yakin ingin ${actionText}?`,
+                text: `Permohonan ini akan ${actionText} dan perubahan tidak dapat dibatalkan.`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: confirmColor,
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: `Ya, ${actionText}!`,
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Tampilkan loading selama proses update
+                    Swal.fire({
+                        title: 'Memproses...',
+                        text: 'Mohon tunggu sebentar.',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    fetch('', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: `action=update_status&request_id=${requestId}&status=${status}`
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Berhasil!',
+                                    text: data.message,
+                                    timer: 1500,
+                                    showConfirmButton: false
+                                });
+                                // Reload halaman setelah sedikit jeda
+                                setTimeout(() => location.reload(), 1500);
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Gagal!',
+                                    text: data.message
+                                });
+                            }
+                        })
+                        .catch(() => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Kesalahan Sistem!',
+                                text: 'Terjadi kesalahan, coba lagi nanti.'
+                            });
+                        });
+                }
+            });
+        }
+    </script>
+
+    <!-- logout -->
+    <script>
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault(); // Supaya link tidak langsung dijalankan
+
+            Swal.fire({
+                title: 'Yakin ingin logout?',
+                text: "Kamu akan keluar dari akun ini.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, logout!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Logout Berhasil!',
+                        text: 'Kamu akan diarahkan ke halaman login.',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                    // Redirect ke halaman logout.php setelah sedikit jeda
+                    setTimeout(() => {
+                        window.location.href = 'logout.php';
+                    }, 1500);
+                }
+            });
+        });
+    </script>
+
+
+
 
 </body>
 

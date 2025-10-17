@@ -320,7 +320,7 @@
         </a>
       </div>
 
-      <a href="index.html" class="back-link">
+      <a href="dashboard_user.php" class="back-link">
         <i class="fas fa-arrow-left"></i>
         <span>Kembali ke Halaman Utama</span>
       </a>

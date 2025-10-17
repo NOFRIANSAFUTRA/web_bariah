@@ -768,45 +768,54 @@
             </div>
 
             <nav class="sidebar-nav">
-                <ul>
-                    <li><a href="#" onclick="showSection('dashboard')" class="nav-link active" data-section="dashboard">
-                            <i class="fas fa-tachometer-alt"></i> Dashboard
-                        </a></li>
-                    <li><a href="#" onclick="showSection('ajukan-surat')" class="nav-link" data-section="ajukan-surat">
-                            <i class="fas fa-plus-circle"></i> Ajukan Surat
-                        </a></li>
-                    <li><a href="#" onclick="showSection('status-surat')" class="nav-link" data-section="status-surat">
-                            <i class="fas fa-list-alt"></i> Status Surat
-
-
+                <ul class="sidebar-menu">
                     <li>
-                        <a href="#" id="logoutBtn" class="nav-link">
-                            <i class="fas fa-sign-out-alt"></i> Logout
+                        <a href="#" onclick="showSection('dashboard')" class="nav-link active" data-section="dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
                         </a>
                     </li>
-
-                    <script>
-                        document.getElementById('logoutBtn').addEventListener('click', function(e) {
-                            e.preventDefault(); // Supaya link tidak langsung dijalankan
-
-                            Swal.fire({
-                                title: 'Yakin ingin logout?',
-                                text: "Kamu akan keluar dari akun ini.",
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: 'Ya, logout!',
-                                cancelButtonText: 'Batal'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    window.location.href = 'logout.php';
-                                }
-                            });
-                        });
-                    </script>
-
+                    <li>
+                        <a href="#" onclick="showSection('ajukan-surat')" class="nav-link" data-section="ajukan-surat">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>Ajukan Surat</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="showSection('status-surat')" class="nav-link" data-section="status-surat">
+                            <i class="fas fa-list-alt"></i>
+                            <span>Status Surat</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="logoutBtn" class="nav-link logout-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
                 </ul>
+
+                <script>
+                    document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                        e.preventDefault();
+
+                        Swal.fire({
+                            title: 'Yakin ingin logout?',
+                            text: "Kamu akan keluar dari akun ini.",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Ya, logout!',
+                            cancelButtonText: 'Batal'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = 'logout.php';
+                            }
+                        });
+                    });
+                </script>
+
             </nav>
         </div>
 
@@ -964,104 +973,113 @@
 
 
                     <!-- Surat Keterangan Domisili -->
-                    <div class="surat-card" onclick="openSuratForm('domisili')">
-                        <div class="card-icon">
-                            <i class="fas fa-house-user"></i>
+                    <div class="surat-grid">
+                        <div class="surat-card" onclick="openSuratForm('domisili.php')">
+                            <div class="card-icon">
+                                <i class="fas fa-envelope-open-text"></i>
+                            </div>
+                            <h3>Surat Domisi</h3>
+                            <p>Ajukan surat pengantar resmi dengan mudah dan cepat melalui sistem ini.</p>
+                            <span class="lihat-prosedur">Klik di sini untuk lihat prosedurnya dan ajukan surat →</span>
                         </div>
-                        <h3>Surat Domisili</h3>
-                        <p>Bukti alamat tinggal resmi untuk keperluan administrasi, sekolah, pekerjaan, atau pembukaan rekening bank</p>
-                        <div class="card-meta">
-                            <span><i class="fas fa-clock"></i> 1 hari kerja</span>
-                            <span><i class="fas fa-file-alt"></i> + Surat RT/RW</span>
-                        </div>
-                        <form action="form_pengajuan2.php" method="get">
-                            <input type="hidden" name="jenis" value="domisili">
-                            <button type="submit" class="btn-ajukan">Ajukan Sekarang</button>
-                        </form>
                     </div>
+
+                    <script>
+                        function openSuratForm(file) {
+                            window.location.href = file; // Arahkan ke file lain, contoh: pengantar.html
+                        }
+                    </script>
 
 
                     <!-- Surat Keterangan Usaha -->
-                    <div class="surat-card" onclick="openSuratForm('usaha')">
-                        <div class="card-icon">
-                            <i class="fas fa-store"></i>
+                    <div class="surat-grid">
+                        <div class="surat-card" onclick="openSuratForm('usaha.php')">
+                            <div class="card-icon">
+                                <i class="fas fa-envelope-open-text"></i>
+                            </div>
+                            <h3>Surat Keterangan Usaha</h3>
+                            <p>Ajukan surat pengantar resmi dengan mudah dan cepat melalui sistem ini.</p>
+                            <span class="lihat-prosedur">Klik di sini untuk lihat prosedurnya dan ajukan surat →</span>
                         </div>
-                        <h3>Surat Keterangan Usaha</h3>
-                        <p>Legalitas usaha mikro/kecil untuk pengajuan pinjaman, perizinan, atau keperluan administrasi lainnya</p>
-                        <div class="card-meta">
-                            <span><i class="fas fa-clock"></i> 2 hari kerja</span>
-                            <span><i class="fas fa-file-alt"></i> + Foto usaha</span>
-                        </div>
-                        <form action="form_pengajuan3.php" method="get">
-                            <input type="hidden" name="jenis" value="usaha">
-                            <button type="submit" class="btn-ajukan">Ajukan Sekarang</button>
-                        </form>
                     </div>
+
+                    <script>
+                        function openSuratForm(file) {
+                            window.location.href = file; // Arahkan ke file lain, contoh: pengantar.html
+                        }
+                    </script>
 
                     <!-- Surat Keterangan Tidak Mampu -->
-                    <div class="surat-card" onclick="openSuratForm('tidak-mampu')">
-                        <div class="card-icon">
-                            <i class="fas fa-hand-holding-heart"></i>
+                    <div class="surat-grid">
+                        <div class="surat-card" onclick="openSuratForm('tidak_mampu.php')">
+                            <div class="card-icon">
+                                <i class="fas fa-envelope-open-text"></i>
+                            </div>
+                            <h3>Surat Keterangan Tidak mampu</h3>
+                            <p>Ajukan surat pengantar resmi dengan mudah dan cepat melalui sistem ini.</p>
+                            <span class="lihat-prosedur">Klik di sini untuk lihat prosedurnya dan ajukan surat →</span>
                         </div>
-                        <h3>Surat Keterangan Tidak Mampu</h3>
-                        <p>Untuk pengajuan bantuan sosial, beasiswa, atau program pemerintah lainnya bagi keluarga kurang mampu</p>
-                        <div class="card-meta">
-                            <span><i class="fas fa-clock"></i> 3 hari kerja</span>
-                            <span><i class="fas fa-file-alt"></i> + Survey petugas</span>
-                        </div>
-                        <form action="form_tidak_mampu.php" method="get">
-                            <input type="hidden" name="jenis" value="usaha">
-                            <button type="submit" class="btn-ajukan">Ajukan Sekarang</button>
-                        </form>
-
                     </div>
+
+                    <script>
+                        function openSuratForm(file) {
+                            window.location.href = file; // Arahkan ke file lain, contoh: pengantar.html
+                        }
+                    </script>
 
                     <!-- Surat Keterangan Meninggal -->
-                    <div class="surat-card" onclick="openSuratForm('meninggal')">
-                        <div class="card-icon">
-                            <i class="fas fa-skull-crossbones"></i>
+                    <div class="surat-grid">
+                        <div class="surat-card" onclick="openSuratForm('meninggal.php')">
+                            <div class="card-icon">
+                                <i class="fas fa-envelope-open-text"></i>
+                            </div>
+                            <h3>Surat Keterangan Meninggal</h3>
+                            <p>Ajukan surat pengantar resmi dengan mudah dan cepat melalui sistem ini.</p>
+                            <span class="lihat-prosedur">Klik di sini untuk lihat prosedurnya dan ajukan surat →</span>
                         </div>
-                        <h3>Surat Keterangan Meninggal</h3>
-                        <p>Administrasi legal untuk keperluan kematian seperti pembuatan akta kematian, klaim asuransi, atau warisan</p>
-                        <div class="card-meta">
-                            <span><i class="fas fa-clock"></i> Proses prioritas</span>
-                            <span><i class="fas fa-file-alt"></i> + Akta kematian</span>
-                        </div>
-                        <button class="btn-ajukan">Ajukan Sekarang</button>
                     </div>
+
+                    <script>
+                        function openSuratForm(file) {
+                            window.location.href = file; // Arahkan ke file lain, contoh: pengantar.html
+                        }
+                    </script>
 
                     <!-- Surat Rekomendasi Nikah -->
-                    <div class="surat-card" onclick="openSuratForm('rekomendasi-nikah')">
-                        <div class="card-icon">
-                            <i class="fas fa-heart"></i>
+                    <div class="surat-grid">
+                        <div class="surat-card" onclick="openSuratForm('nikah.php')">
+                            <div class="card-icon">
+                                <i class="fas fa-envelope-open-text"></i>
+                            </div>
+                            <h3>Surat Nikah</h3>
+                            <p>Ajukan surat pengantar resmi dengan mudah dan cepat melalui sistem ini.</p>
+                            <span class="lihat-prosedur">Klik di sini untuk lihat prosedurnya dan ajukan surat →</span>
                         </div>
-                        <h3>Rekomendasi Nikah</h3>
-                        <p>Persyaratan administrasi pernikahan untuk pengurusan di KUA atau Catatan Sipil</p>
-                        <div class="card-meta">
-                            <span><i class="fas fa-clock"></i> 2 hari kerja</span>
-                            <span><i class="fas fa-file-alt"></i> + Akta kelahiran</span>
-                        </div>
-                        <button class="btn-ajukan">Ajukan Sekarang</button>
                     </div>
-                </div>
 
-                <div class="panduan-section">
-                    <h2><i class="fas fa-info-circle"></i> Panduan Pengajuan Surat</h2>
-                    <ol class="panduan-list">
-                        <li>Pilih jenis surat yang ingin diajukan dari daftar di atas</li>
-                        <li>Isi formulir pengajuan dengan data yang valid dan lengkap</li>
-                        <li>Upload dokumen pendukung yang diperlukan (format PDF/JPG/PNG)</li>
-                        <li>Submit pengajuan dan tunggu verifikasi dari petugas</li>
-                        <li>Pantau status pengajuan melalui menu Status Surat</li>
-                        <li>Setelah disetujui, surat dapat diambil di kantor atau didownload versi digital</li>
-                    </ol>
-                    <div class="catatan-penting">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <div>
-                            <strong>Catatan Penting:</strong> Pastikan data yang diisi valid dan dokumen pendukung lengkap. Pengajuan dengan data palsu atau tidak lengkap akan ditolak dan dapat dikenai sanksi sesuai peraturan daerah.
+                    <script>
+                        function openSuratForm(file) {
+                            window.location.href = file; // Arahkan ke file lain, contoh: pengantar.html
+                        }
+                    </script>
+
+                    <div class="panduan-section">
+                        <h2><i class="fas fa-info-circle"></i> Panduan Pengajuan Surat</h2>
+                        <ol class="panduan-list">
+                            <li>Pilih jenis surat yang ingin diajukan dari daftar di atas</li>
+                            <li>Isi formulir pengajuan dengan data yang valid dan lengkap</li>
+                            <li>Upload dokumen pendukung yang diperlukan (format PDF/JPG/PNG)</li>
+                            <li>Submit pengajuan dan tunggu verifikasi dari petugas</li>
+                            <li>Pantau status pengajuan melalui menu Status Surat</li>
+                            <li>Setelah disetujui, surat dapat diambil di kantor atau didownload versi digital</li>
+                        </ol>
+                        <div class="catatan-penting">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <div>
+                                <strong>Catatan Penting:</strong> Pastikan data yang diisi valid dan dokumen pendukung lengkap. Pengajuan dengan data palsu atau tidak lengkap akan ditolak dan dapat dikenai sanksi sesuai peraturan daerah.
+                            </div>
                         </div>
                     </div>
-                </div>
             </section>
 
             <!-- STATUS SURAT SECTION -->
